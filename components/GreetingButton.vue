@@ -1,6 +1,6 @@
 <template>
   <div
-    class="align-center flex w-48 gap-2 cursor-pointer"
+    class="align-center flex gap-2 cursor-pointer w-[172px]"
     @mouseenter="show = true"
     @mouseleave="show = false"
   >
