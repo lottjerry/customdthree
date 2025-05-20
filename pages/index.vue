@@ -4,12 +4,20 @@
       <Navbar />
     </header>
     <section
-      class="align-center mx-[400px] mb-[100px] mt-[100px] flex h-screen flex-col items-center border pt-[150px]"
+      class="align-center relative mb-[100px] flex h-dvh flex-col items-center pt-[200px]"
     >
-      <div class="flex flex-col items-center justify-center gap-[50px] border">
-        <Subtitle class="relative z-10" />
-        <HeroTitle />
+      <div class="flex flex-col items-center justify-center gap-[50px]">
+        <Subtitle class="relative z-20" />
+        <div>
+          <HeroTitle />
+        </div>
+
         <CountdownTimer class="relative z-20 mt-[4em]" />
+      </div>
+      <div class="absolute bottom-[5em] left-[5em]">
+        <client-only>
+          <Vue3Lottie :animationLink="animationLink" :height="80" />
+        </client-only>
       </div>
     </section>
     <section
@@ -18,10 +26,14 @@
       <h1 class="text-center text-3xl">Section 2</h1>
       <LoremFull />
     </section>
-    <footer class="absolute bottom-0 start-0">
+    <footer>
       <Footer />
     </footer>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+  const animationLink = ref(
+    'https://lottie.host/e0804992-47f3-420d-b30c-412a734c0cc0/cFcHTrYcci.json',
+  );
+</script>

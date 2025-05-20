@@ -1,5 +1,5 @@
 <template>
-  <div class="border text-white">
+  <div class="text-white">
     <client-only>
       <VueCountdown
         class="flex items-start justify-center gap-8"
