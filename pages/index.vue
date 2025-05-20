@@ -4,11 +4,14 @@
       <Navbar />
     </header>
     <section
-      class="mx-[400px] mb-[100px] mt-[100px] text-center"
+      class="align-center mx-[400px] mb-[100px] mt-[100px] flex h-screen flex-col items-center border pt-[150px]"
     >
-      <Subtitle />
+      <div class="border flex justify-center flex-col items-center gap-[75px]">
+        <Subtitle class="relative z-10" />
+        <HeroTitle />
+      </div>
     </section>
-    <section class="mx-[400px] mb-[160px] mt-[100px] border text-white">
+    <section class="mx-[400px] mb-[160px] mt-[100px] border text-white relative z-10">
       <h1 class="text-center text-3xl">Section 2</h1>
       <LoremFull />
     </section>
@@ -18,6 +21,4 @@
   </div>
 </template>
 
-<script setup>
-
-</script>
+<script setup></script>
