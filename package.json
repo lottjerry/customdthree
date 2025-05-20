@@ -10,11 +10,12 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@chenfengyuan/vue-countdown": "2",
     "@nuxt/icon": "1.13.0",
     "@nuxtjs/tailwindcss": "6.14.0",
     "nuxt": "^3.17.3",
     "v-gsap-nuxt": "1.4.2",
-    "vue": "^3.5.13",
+    "vue": "3",
     "vue-router": "^4.5.1",
     "vue3-lottie": "^3.3.1"
   },

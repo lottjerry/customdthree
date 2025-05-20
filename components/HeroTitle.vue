@@ -60,9 +60,10 @@
     color: transparent;
   }
   span:nth-child(3) {
-    background: var(
-      --Gradient-Grey,
-      linear-gradient(89deg, #f5f5f7 0%, #5f5f63 100%)
+    background: linear-gradient(
+      90deg,
+      #f5f5f7 0%,
+      #5f5f63 100%
     );
     background-clip: text;
     color: transparent;

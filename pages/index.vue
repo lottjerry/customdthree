@@ -6,12 +6,15 @@
     <section
       class="align-center mx-[400px] mb-[100px] mt-[100px] flex h-screen flex-col items-center border pt-[150px]"
     >
-      <div class="border flex justify-center flex-col items-center gap-[75px]">
+      <div class="flex flex-col items-center justify-center gap-[50px] border">
         <Subtitle class="relative z-10" />
         <HeroTitle />
+        <CountdownTimer class="relative z-20 mt-[4em]" />
       </div>
     </section>
-    <section class="mx-[400px] mb-[160px] mt-[100px] border text-white relative z-10">
+    <section
+      class="relative z-10 mx-[400px] mb-[160px] mt-[100px] border text-white"
+    >
       <h1 class="text-center text-3xl">Section 2</h1>
       <LoremFull />
     </section>
