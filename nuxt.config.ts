@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss', 'v-gsap-nuxt', '@nuxt/icon'],
+  modules: ['@nuxtjs/tailwindcss', 'v-gsap-nuxt', '@nuxt/icon', '@vee-validate/nuxt'],
   icon: {
     customCollections: [
       {
