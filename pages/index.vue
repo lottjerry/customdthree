@@ -21,13 +21,13 @@
       </div>
     </section>
     <section
-      class="no-repeat relative z-10 mb-[160px] mt-[100px]  border bg-[url(/assets/images/background.jpeg)] bg-contain bg-center bg-no-repeat text-white flex justify-center h-dvh items-center"
+      class="no-repeat relative z-10 flex h-dvh flex-col items-center justify-center gap-32 bg-[url(/assets/images/background.jpeg)] bg-contain bg-center bg-no-repeat text-white"
     >
       <GlassCard />
+      <footer class="absolute bottom-0">
+        <Footer />
+      </footer>
     </section>
-    <footer>
-      <Footer />
-    </footer>
   </div>
 </template>
 
@@ -36,3 +36,5 @@
     'https://lottie.host/e0804992-47f3-420d-b30c-412a734c0cc0/cFcHTrYcci.json',
   );
 </script>
+
+<style scoped></style>
