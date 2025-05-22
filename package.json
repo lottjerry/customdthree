@@ -16,6 +16,7 @@
     "@vee-validate/nuxt": "^4.15.0",
     "@vee-validate/yup": "^4.15.0",
     "nuxt": "^3.17.3",
+    "nuxt-locomotive-scroll": "0.0.1",
     "v-gsap-nuxt": "1.4.2",
     "vue": "3",
     "vue-router": "^4.5.1",
