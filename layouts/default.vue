@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative flex h-full flex-col items-center justify-center  bg-black p-5"
+    class="flex h-full flex-col items-center justify-center  bg-black p-5 border"
   >
     <main>
       <slot />

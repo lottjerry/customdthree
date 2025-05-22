@@ -21,10 +21,9 @@
       </div>
     </section>
     <section
-      class="relative z-10 mx-[400px] mb-[160px] mt-[100px] border text-white"
+      class="no-repeat relative z-10 mb-[160px] mt-[100px]  border bg-[url(/assets/images/background.jpeg)] bg-contain bg-center bg-no-repeat text-white flex justify-center h-dvh items-center"
     >
-      <h1 class="text-center text-3xl">Section 2</h1>
-      <LoremFull />
+      <GlassCard />
     </section>
     <footer>
       <Footer />
