@@ -21,7 +21,7 @@
       </div>
     </section>
     <section
-      class="no-repeat relative z-10 flex h-dvh flex-col items-center justify-center gap-32 bg-[url(/assets/images/background.jpeg)] bg-contain bg-center bg-no-repeat text-white"
+      class="no-repeat relative z-10 flex h-dvh flex-col items-center justify-center gap-32 bg-[url(/assets/images/background.jpeg)] bg-contain bg-center bg-no-repeat text-white bg-fixed"
     >
       <GlassCard />
       <footer class="absolute bottom-0">
