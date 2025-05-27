@@ -9,8 +9,8 @@
     <main class="border-purple-400 bg-purple-950">
       <slot />
     </main>
-    <footer class="h-[5rem] border-[2px] border-green-400 bg-green-950">
-      <p class="text-white">Footer</p>
+    <footer class="bg-black">
+      <Footer />
     </footer>
   </div>
 </template>
