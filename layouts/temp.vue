@@ -6,7 +6,7 @@
         <GreetingButton />
       </nav>
     </header>
-    <main class="border-purple-400 bg-purple-950">
+    <main class="bg-black">
       <slot />
     </main>
     <footer class="bg-black">

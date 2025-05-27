@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 class="text-5xl text-white">
-      Something <span>Awesome</span> Is Coming
+    <h1 class="text-5xl text-white flex flex-col md:inline">
+      Something <span class="md:text-5xl text-7xl">Awesome</span> Is Coming
     </h1>
   </div>
 </template>
