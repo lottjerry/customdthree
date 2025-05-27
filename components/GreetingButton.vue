@@ -1,6 +1,6 @@
 <template>
   <div
-    class="align-center flex cursor-pointer items-center gap-2 lg:w-[170.41px]"
+    class="align-center flex cursor-pointer items-center gap-2 w-[170.41px]"
     @mouseenter="show = true"
     @mouseleave="show = false"
   >
@@ -13,25 +13,25 @@
       leave-from-class="opacity-100 translate-y-0"
       leave-to-class="opacity-0 translate-y-4"
     >
-      <IconHand v-if="show || isMobile" class="w-[2em]" />
+      <IconHand v-if="show" class="w-[2em]" />
     </transition>
   </div>
 </template>
 
 <script setup>
   const show = ref(false);
-  const isMobile = ref(false);
+  // const isMobile = ref(false);
 
-  const checkScreenSize = () => {
-    isMobile.value = window.matchMedia('(max-width: 64rem)').matches;
-  };
+  // const checkScreenSize = () => {
+  //   isMobile.value = window.matchMedia('(max-width: 64rem)').matches;
+  // };
 
-  onMounted(() => {
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-  });
+  // onMounted(() => {
+  //   checkScreenSize();
+  //   window.addEventListener('resize', checkScreenSize);
+  // });
 
-  onBeforeUnmount(() => {
-    window.removeEventListener('resize', checkScreenSize);
-  });
+  // onBeforeUnmount(() => {
+  //   window.removeEventListener('resize', checkScreenSize);
+  // });
 </script>
