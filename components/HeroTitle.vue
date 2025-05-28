@@ -1,5 +1,5 @@
 <template>
-  <div ref="container" class="relative w-fit overflow-hidden">
+  <div ref="container" class="relative w-fit overflow-hidden"  style="--x: -100px; --y: -100px;">
     <h1
       class="flex cursor-default flex-col text-6xl text-white md:flex-row md:text-[4rem] lg:text-[5rem] xl:text-8xl"
     >
