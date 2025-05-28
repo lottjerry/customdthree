@@ -1,14 +1,17 @@
 <template>
   <div>
-    <section class="border-[2px] h-dvh flex justify-start md:justify-center items-center px-5 md:px-0">
+    <section
+      class="flex h-dvh flex-col items-start justify-center gap-10 border-[2px] px-5 md:items-center md:px-0"
+    >
       <Subtitle />
+      <HeroTitle />
     </section>
-    <section class="border-[2px] h-dvh"></section>
+    <section class="h-dvh border-[2px]"></section>
   </div>
 </template>
 
 <script setup>
   definePageMeta({
-    layout: 'temp'
-  })
+    layout: 'temp',
+  });
 </script>
