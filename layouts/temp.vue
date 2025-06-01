@@ -9,8 +9,5 @@
     <main class="bg-black">
       <slot />
     </main>
-    <footer class="bg-black">
-      <Footer />
-    </footer>
   </div>
 </template>

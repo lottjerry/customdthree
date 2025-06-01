@@ -1,6 +1,6 @@
 <template>
   <div
-    class="border-colors flex h-[400px] w-[700px] flex-col items-center justify-center gap-[50px] rounded-[3.5rem] border-2 bg-black bg-opacity-60 backdrop-blur-[2px]"
+    class="border-colors flex h-[400px] w-[700px] flex-col items-center justify-center gap-[50px] rounded-[3.5rem] border-2 bg-black bg-opacity-60 backdrop-blur-[2px] text-white"
   >
     <h1 class="text-7xl font-thin">Are you ready ?</h1>
     <div

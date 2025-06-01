@@ -6,13 +6,21 @@
       <Subtitle />
       <HeroTitle />
       <CountdownTimer />
-      <div class="absolute md:bottom-[5em] md:left-[5em] bottom-[1em] left-[2em] w-[1.5rem] md:w-auto">
+      <div
+        class="absolute bottom-[1em] left-[2em] w-[1.5rem] md:bottom-[5em] md:left-[5em] md:w-auto"
+      >
         <client-only>
           <Vue3Lottie :animationLink="animationLink" :height="80" />
         </client-only>
       </div>
     </section>
-    <section class="h-dvh border-[2px]"></section>
+    <section
+      class="relative h-dvh border-[2px] bg-[url(/assets/images/Background_Mobile.jpeg)] md:bg-[url(/assets/images/Background_Tablet.jpeg)] lg:bg-[url(/assets/images/Background_Full.jpeg)] bg-cover bg-fixed bg-center bg-no-repeat"
+    >
+      <!-- <footer class="absolute bottom-0">
+      <Footer />
+    </footer> -->
+    </section>
   </div>
 </template>
 
