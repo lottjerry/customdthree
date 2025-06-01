@@ -15,11 +15,11 @@
       </div>
     </section>
     <section
-      class="relative h-dvh border-[2px] bg-[url(/assets/images/Background_Mobile.jpeg)] md:bg-[url(/assets/images/Background_Tablet.jpeg)] lg:bg-[url(/assets/images/Background_Full.jpeg)] bg-cover bg-fixed bg-center bg-no-repeat"
+      class="relative h-dvh border-[2px] bg-[url(/assets/images/Background_Mobile.jpeg)] md:bg-[url(/assets/images/Background_Tablet.jpeg)] lg:bg-[url(/assets/images/Background_Full.jpeg)] bg-cover bg-fixed bg-center bg-no-repeat flex flex-col items-center justify-center"
     >
-      <!-- <footer class="absolute bottom-0">
+      <footer class="absolute bottom-0">
       <Footer />
-    </footer> -->
+    </footer>
     </section>
   </div>
 </template>
