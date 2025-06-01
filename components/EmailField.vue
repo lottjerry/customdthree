@@ -1,26 +1,26 @@
 <template>
   <div class="flex w-full flex-col items-center gap-2">
-    <h3 class="w-3/4 text-lg">Email *</h3>
+    <h3 class="w-3/4">Email *</h3>
     <form
       @submit="onSubmit"
-      class="border-colors flex h-14 w-3/4 items-center justify-between rounded-3xl border bg-transparent px-1 "
+      class="border-colors flex h-14 md:w-3/4 w-10/12 items-center justify-between rounded-3xl border bg-transparent px-1"
       :class="errors.email ? 'border-red-600' : 'border-white'"
     >
       <input
         v-model="email"
         v-bind="emailAttrs"
-        class="ml-5 h-8 w-72 bg-transparent text-lg outline-none"
+        class="ml-5 h-8 w-72 bg-transparent outline-none md:text-lg"
         placeholder="example@domain.com"
       />
       <button
         :disabled="errors.email"
-        class="mr-3 h-12 w-32 rounded-3xl border text-lg transition-transform duration-700 ease-in-out hover:translate-x-3 disabled:opacity-50 disabled:translate-x-0 disabled:cursor-not-allowed disabled:border-red-600"
+        class="mr-3 h-12 w-32 rounded-3xl border transition-transform duration-700 ease-in-out hover:translate-x-3 disabled:translate-x-0 disabled:cursor-not-allowed disabled:border-red-600 disabled:opacity-50 md:w-32 md:text-lg text-sm"
         :class="errors.email ? '' : 'button-animation'"
       >
         <span>Notify Me!</span>
       </button>
     </form>
-    <p class="w-3/4 text-red-600 absolute bottom-4">{{ errors.email }}</p>
+    <p class="absolute bottom-4 w-3/4 text-red-600">{{ errors.email }}</p>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-[150px] items-center justify-center gap-5">
+  <div class="flex md:h-[150px] items-center justify-center gap-5">
     <p class="text-white">© 2025 Custom D3</p>
     <div>
       <client-only>
