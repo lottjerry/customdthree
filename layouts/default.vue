@@ -1,6 +1,6 @@
 <template>
   <div class="h-dvh bg-black">
-    <header class="fixed left-0 top-0 h-[6rem] w-dvw bg-black z-30">
+    <header class="fixed left-0 top-0 h-[6rem] w-dvw bg-black z-30 bg-opacity-10  backdrop-blur-[2px] rounded-full">
       <nav class="flex h-full items-center justify-between text-white md:justify-around md:gap-36">
         <IconLogo class="ml-5 md:ml-0" />
         <GreetingButton />
