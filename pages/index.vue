@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div v-locomotive>
     <section
       class="flex h-dvh flex-col items-start justify-center gap-10 px-2 md:items-center md:px-0"
+      data-scroll-section
     >
       <Subtitle />
       <HeroTitle />
@@ -16,7 +17,7 @@
       </div>
     </section>
     <section
-      v-if="appStore.pageLoaded"
+      data-scroll-section
       class="relative flex h-dvh flex-col items-center justify-center bg-[url(/assets/images/Background_Mobile.jpeg)] bg-cover bg-fixed bg-center bg-no-repeat px-1 md:bg-[url(/assets/images/Background_Tablet.jpeg)] md:px-0 lg:bg-[url(/assets/images/Background_Full.jpeg)]"
     >
       <GlassCard />

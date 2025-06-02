@@ -16,40 +16,46 @@
 </template>
 
 <script setup>
-  import { useAppStore } from '~/stores/appStore';
+import { ref, watch, onMounted } from 'vue';
+import { useAppStore } from '~/stores/appStore';
 
-  const appStore = useAppStore();
-  const loader = ref(null);
-  const loader_content = ref(null);
-  const load_Complete = ref(false);
-  const emit = defineEmits(['loaded']);
+const appStore = useAppStore();
+const loader = ref(null);
+const load_Complete = ref(false);
+const emit = defineEmits(['loaded']);
 
-  const nuxtApp = useNuxtApp();
+const nuxtApp = useNuxtApp();
 
-  nuxtApp.hook('app:suspense:resolve', () => {
-    load_Complete.value = true;
-  });
+nuxtApp.hook('app:suspense:resolve', () => {
+  load_Complete.value = true;
+});
 
+const startAnimations = () => {
+  if (load_Complete.value) {
+    useGSAP().to(loader.value, {
+      delay: 3,
+      duration: 1,
+      opacity: 0,
+      ease: 'power4.inOut',
+      onComplete: () => {
+        appStore.pageLoaded = true;
+        emit('loaded');
+        document.body.style.overflow = ''; // re-enable scroll
+      },
+    });
+  }
+};
 
-  const startAnimations = () => {
-    if (load_Complete) {
-      useGSAP().to(loader.value, {
-        delay: 3,
-        duration: 1,
-        opacity: 0,
-        ease: 'power4.inOut',
-        onComplete: () => {
-          appStore.pageLoaded = true;
-          emit('loaded'); // Emit 'loaded' event
-          console.log('load complete');
-        },
-      });
-    }
-  };
+onMounted(() => {
+  document.body.style.overflow = 'hidden'; // disable scroll while loading
+  startAnimations();
+});
 
-  onMounted(() => {
+watch(load_Complete, (val) => {
+  if (val) {
     startAnimations();
-  });
+  }
+});
 </script>
 
 <style scoped>
