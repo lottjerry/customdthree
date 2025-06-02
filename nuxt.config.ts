@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@vee-validate/nuxt',
     'nuxt-locomotive-scroll',
+    '@pinia/nuxt',
   ],
   icon: {
     customCollections: [
