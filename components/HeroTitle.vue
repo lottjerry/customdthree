@@ -1,5 +1,9 @@
 <template>
-  <div ref="container" class="relative w-fit overflow-hidden"  style="--x: -100px; --y: -100px;">
+  <div
+    ref="container"
+    class="relative w-fit overflow-hidden opacity-0"
+    style="--x: -100px; --y: -100px"
+  >
     <h1
       class="flex cursor-default flex-col text-6xl text-white md:flex-row md:text-[4rem] lg:text-[5rem] xl:text-8xl"
     >
@@ -12,7 +16,14 @@
 </template>
 
 <script setup>
+  import { useAppStore } from '~/stores/appStore';
+
+  const gsap = useGSAP();
+
   const container = ref(null);
+
+  const appStore = useAppStore();
+  const { pageLoaded } = storeToRefs(appStore);
 
   let animationFrame;
   const updateMousePosition = (e) => {
@@ -20,7 +31,7 @@
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    useGSAP().to(container.value, {
+    gsap.to(container.value, {
       duration: 0.3,
       '--x': `${x}px`,
       '--y': `${y}px`,
@@ -36,6 +47,20 @@
 
   onUnmounted(() => {
     window.removeEventListener('mousemove', updateMousePosition);
+  });
+
+  watch(pageLoaded, () => {
+    gsap.fromTo(
+      container.value,
+      {
+        opacity: 0,
+        y: 100,
+      },
+      {
+        opacity: 1,
+        y: 0,
+      },
+    );
   });
 </script>
 

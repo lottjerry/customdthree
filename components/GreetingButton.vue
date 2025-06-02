@@ -1,6 +1,7 @@
 <template>
   <div
-    class="align-center flex cursor-pointer items-center gap-2 w-[170.41px]"
+    ref="greeting"
+    class="align-center flex w-[170.41px] cursor-pointer items-center gap-2 opacity-0"
     @mouseenter="show = true"
     @mouseleave="show = false"
   >
@@ -19,19 +20,27 @@
 </template>
 
 <script setup>
+  import { useAppStore } from '~/stores/appStore';
+
+  const gsap = useGSAP();
+
+  const greeting = ref(null);
+
+  const appStore = useAppStore();
+  const { pageLoaded } = storeToRefs(appStore);
   const show = ref(false);
-  // const isMobile = ref(false);
 
-  // const checkScreenSize = () => {
-  //   isMobile.value = window.matchMedia('(max-width: 64rem)').matches;
-  // };
-
-  // onMounted(() => {
-  //   checkScreenSize();
-  //   window.addEventListener('resize', checkScreenSize);
-  // });
-
-  // onBeforeUnmount(() => {
-  //   window.removeEventListener('resize', checkScreenSize);
-  // });
+  watch(pageLoaded, () => {
+    gsap.fromTo(
+      greeting.value,
+      {
+        opacity: 0,
+        y: 100,
+      },
+      {
+        opacity: 1,
+        y: 0,
+      },
+    );
+  });
 </script>

@@ -1,5 +1,6 @@
 <template>
   <svg
+    ref="icon"
     width="68"
     height="65"
     viewBox="0 0 68 65"
@@ -7,7 +8,7 @@
     xmlns="http://www.w3.org/2000/svg"
     @mouseenter="show = true"
     @mouseleave="show = false"
-    class="h-4rem w-[6rem] cursor-pointer p-2 md:h-[5rem]"
+    class="h-4rem w-[6rem] cursor-pointer p-2 md:h-[5rem] opacity-0"
   >
     <!-- 3 - Fill -->
     <transition
@@ -113,20 +114,27 @@
 </template>
 
 <script setup>
+  import { useAppStore } from '~/stores/appStore';
+
+  const gsap = useGSAP();
+
+  const icon = ref(null);
+
+  const appStore = useAppStore();
+  const { pageLoaded } = storeToRefs(appStore);
   const show = ref(false);
 
-  // const isMobile = ref(false);
-
-  // const checkScreenSize = () => {
-  //   isMobile.value = window.matchMedia('(max-width: 64rem)').matches;
-  // };
-
-  // onMounted(() => {
-  //   checkScreenSize();
-  //   window.addEventListener('resize', checkScreenSize);
-  // });
-
-  // onBeforeUnmount(() => {
-  //   window.removeEventListener('resize', checkScreenSize);
-  // });
+  watch(pageLoaded, () => {
+    gsap.fromTo(
+      icon.value,
+      {
+        opacity: 0,
+        y: 100,
+      },
+      {
+        opacity: 1,
+        y: 0,
+      },
+    );
+  });
 </script>

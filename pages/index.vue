@@ -7,7 +7,8 @@
       <HeroTitle />
       <CountdownTimer />
       <div
-        class="absolute bottom-[1em] left-[2em] w-[1.5rem] md:bottom-[5em] md:left-[5em] md:w-auto"
+        class="absolute bottom-[1em] left-[2em] w-[1.5rem] opacity-0 md:bottom-[5em] md:left-[5em] md:w-auto"
+        ref="mouse_scroll"
       >
         <client-only>
           <Vue3Lottie :animationLink="animationLink" :height="80" />
@@ -16,7 +17,7 @@
     </section>
     <section
       v-if="appStore.pageLoaded"
-      class="relative h-dvh bg-[url(/assets/images/Background_Mobile.jpeg)] md:bg-[url(/assets/images/Background_Tablet.jpeg)] lg:bg-[url(/assets/images/Background_Full.jpeg)] bg-cover bg-fixed bg-center bg-no-repeat flex flex-col items-center justify-center px-1 md:px-0"
+      class="relative flex h-dvh flex-col items-center justify-center bg-[url(/assets/images/Background_Mobile.jpeg)] bg-cover bg-fixed bg-center bg-no-repeat px-1 md:bg-[url(/assets/images/Background_Tablet.jpeg)] md:px-0 lg:bg-[url(/assets/images/Background_Full.jpeg)]"
     >
       <GlassCard />
       <footer class="absolute bottom-0">
@@ -29,8 +30,28 @@
 <script setup>
   import { useAppStore } from '~/stores/appStore';
 
+  const gsap = useGSAP();
+
+  const mouse_scroll = ref(null);
+
   const appStore = useAppStore();
+  const { pageLoaded } = storeToRefs(appStore);
+
   const animationLink = ref(
-    'https://lottie.host/e0804992-47f3-420d-b30c-412a734c0cc0/cFcHTrYcci.json'
+    'https://lottie.host/e0804992-47f3-420d-b30c-412a734c0cc0/cFcHTrYcci.json',
   );
+
+  watch(pageLoaded, () => {
+    gsap.fromTo(
+      mouse_scroll.value,
+      {
+        opacity: 0,
+        y: 100,
+      },
+      {
+        opacity: 1,
+        y: 0,
+      },
+    );
+  });
 </script>

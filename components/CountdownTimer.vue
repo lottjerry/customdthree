@@ -1,5 +1,5 @@
 <template>
-  <div class="text-white">
+  <div class="text-white opacity-0" ref="countdown_timer">
     <client-only>
       <VueCountdown
         class="flex items-start justify-center md:gap-8 gap-3"
@@ -67,6 +67,14 @@
 
 <script setup>
   import VueCountdown from '@chenfengyuan/vue-countdown';
+  import { useAppStore } from '~/stores/appStore';
+
+  const gsap = useGSAP();
+
+  const countdown_timer = ref(null)
+
+  const appStore = useAppStore();
+  const { pageLoaded } = storeToRefs(appStore);
 
   function transformSlotProps(props) {
     const formattedProps = {};
@@ -77,6 +85,20 @@
 
     return formattedProps;
   }
+
+  watch(pageLoaded, () => {
+    gsap.fromTo(
+      countdown_timer.value,
+      {
+        opacity: 0,
+        y: 100,
+      },
+      {
+        opacity: 1,
+        y: 0,
+      },
+    );
+  });
 </script>
 
 <style scoped>
