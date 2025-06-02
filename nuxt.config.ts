@@ -7,7 +7,6 @@ export default defineNuxtConfig({
     'v-gsap-nuxt',
     '@nuxt/icon',
     '@vee-validate/nuxt',
-    'nuxt-locomotive-scroll',
     '@pinia/nuxt',
   ],
   icon: {
