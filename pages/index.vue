@@ -24,10 +24,12 @@
     </section>
     <section
       ref="subscribe_section"
-      v-if="appStore.pageLoaded"
       class="relative flex h-svh flex-col items-center justify-center bg-[url(/assets/images/Background_Mobile.jpeg)] bg-cover bg-fixed bg-center bg-no-repeat px-1 md:bg-[url(/assets/images/Background_Tablet.jpeg)] md:px-0 lg:h-dvh lg:bg-[url(/assets/images/Background_Full.jpeg)]"
     >
-      <GlassCard ref="glass_card" class="opacity-0" />
+    <div ref="glass_card" class="w-full md:w-auto opacity-0">
+        <GlassCard />
+    </div>
+    
 
       <footer class="absolute bottom-0">
         <Footer />
@@ -47,7 +49,7 @@
   const subtitle = ref(null);
   const herotitle = ref(null);
   const countdown = ref(null);
-  const glass_card = ref(null);
+  const glass_card = ref(null)
 
   const appStore = useAppStore();
   const { pageLoaded } = storeToRefs(appStore);
@@ -95,16 +97,35 @@
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: hero_section.value,
-        start: 'top top',
-        end: '80% top',
-        scrub: 2,
-        markers: true,
+        start: '60% top',
+        end: '80%',
+        scrub: 3,
       },
     });
 
     tl.to(mouse_scroll.value, {
-      y: 50,
+      y: 35,
       opacity: 0,
+      duration: 1,
+    });
+
+
+
+    const tl3 = gsap.timeline({
+      scrollTrigger: {
+        trigger: hero_section.value,
+        start: 'center top',
+        scrub: 3,
+      },
+    });
+
+    tl3.set(glass_card.value, {
+      y: 100,
+    })
+
+    tl3.to(glass_card.value, {
+      y: 0,
+      opacity: 1,
       duration: 1,
     });
   });
