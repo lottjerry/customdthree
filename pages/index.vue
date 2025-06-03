@@ -1,7 +1,7 @@
 <template>
   <div>
     <section
-      ref="section_1"
+      ref="hero_section"
       class="flex h-svh flex-col items-start justify-center gap-10 px-2 md:items-center md:px-0 lg:h-dvh"
     >
       <div ref="subtitle">
@@ -23,11 +23,11 @@
       </div>
     </section>
     <section
-      ref="section_2"
+      ref="subscribe_section"
       v-if="appStore.pageLoaded"
       class="relative flex h-svh flex-col items-center justify-center bg-[url(/assets/images/Background_Mobile.jpeg)] bg-cover bg-fixed bg-center bg-no-repeat px-1 md:bg-[url(/assets/images/Background_Tablet.jpeg)] md:px-0 lg:h-dvh lg:bg-[url(/assets/images/Background_Full.jpeg)]"
     >
-      <GlassCard />
+      <GlassCard ref="glass_card" class="opacity-0" />
 
       <footer class="absolute bottom-0">
         <Footer />
@@ -42,12 +42,13 @@
   const gsap = useGSAP();
 
   const mouse_scroll = ref(null);
-  const section_1 = ref(null);
-  const section_2 = ref(null);
+  const hero_section = ref(null);
+  const subscribe_section = ref(null);
   const subtitle = ref(null);
   const herotitle = ref(null);
   const countdown = ref(null);
-  
+  const glass_card = ref(null);
+
   const appStore = useAppStore();
   const { pageLoaded } = storeToRefs(appStore);
 
@@ -93,15 +94,34 @@
     // Scroll-based animation using timeline
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: section_2.value,
+        trigger: hero_section.value,
         start: 'top top',
+        end: '80% top',
         scrub: 2,
+        markers: true
       },
     });
 
     tl.to(mouse_scroll.value, {
       y: 50,
       opacity: 0,
+      duration: 1,
+    });
+  });
+
+  onMounted(() => {
+    // Scroll-based animation using timeline
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: subscribe_section.value,
+        start: 'top top',
+        scrub: 2,
+      },
+    });
+
+    tl.to(glass_card.value, {
+      y: -100,
+      opacity: 1,
       duration: 1,
     });
   });
