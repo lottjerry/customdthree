@@ -56,7 +56,7 @@
     'https://lottie.host/e0804992-47f3-420d-b30c-412a734c0cc0/cFcHTrYcci.json',
   );
 
-  watch(pageLoaded, () => {
+  watch(pageLoaded, (newValue) => {
     // Initial animation (entry animation)
     gsap.fromTo(
       mouse_scroll.value,
@@ -98,30 +98,13 @@
         start: 'top top',
         end: '80% top',
         scrub: 2,
-        markers: true
+        markers: true,
       },
     });
 
     tl.to(mouse_scroll.value, {
       y: 50,
       opacity: 0,
-      duration: 1,
-    });
-  });
-
-  onMounted(() => {
-    // Scroll-based animation using timeline
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: subscribe_section.value,
-        start: 'top top',
-        scrub: 2,
-      },
-    });
-
-    tl.to(glass_card.value, {
-      y: -100,
-      opacity: 1,
       duration: 1,
     });
   });
