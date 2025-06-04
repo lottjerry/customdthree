@@ -33,7 +33,7 @@ nuxtApp.hook('app:suspense:resolve', () => {
 const startAnimations = () => {
   if (load_Complete.value) {
     useGSAP().to(loader.value, {
-      delay: 3,
+      delay: 1.5,
       duration: 1,
       opacity: 0,
       ease: 'power4.inOut',
