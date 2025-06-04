@@ -8,5 +8,11 @@
 </template>
 
 <script setup>
-const showLoader = ref(true);
+  const showLoader = ref(true);
 </script>
+
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+</style>

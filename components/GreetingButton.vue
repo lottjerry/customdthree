@@ -1,7 +1,8 @@
 <template>
   <div
+    @click="$emit('scroll-to-subscribe')"
     ref="greeting"
-    class="align-center flex w-[170.41px] cursor-pointer items-center gap-2 opacity-0"
+    class="align-center flex w-[205px] cursor-pointer items-center gap-2 opacity-0"
     @mouseenter="show = true"
     @mouseleave="show = false"
   >
@@ -40,7 +41,7 @@
       {
         opacity: 1,
         x: 0,
-        duration: 1
+        duration: 1,
       },
     );
   });

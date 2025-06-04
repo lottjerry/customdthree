@@ -1,5 +1,6 @@
 <template>
   <svg
+    @click="$emit('scroll-to-hero')"
     ref="icon"
     width="68"
     height="65"
@@ -8,7 +9,7 @@
     xmlns="http://www.w3.org/2000/svg"
     @mouseenter="show = true"
     @mouseleave="show = false"
-    class="h-4rem w-[6rem] cursor-pointer p-2 md:h-[5rem] opacity-0"
+    class="h-4rem w-[6rem] cursor-pointer p-2 opacity-0 md:h-[5rem]"
   >
     <!-- 3 - Fill -->
     <transition
@@ -134,7 +135,7 @@
       {
         opacity: 1,
         x: 0,
-        duration: 1
+        duration: 1,
       },
     );
   });
