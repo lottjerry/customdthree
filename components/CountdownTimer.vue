@@ -3,7 +3,7 @@
     <client-only>
       <VueCountdown
         class="flex items-start justify-center md:gap-8 gap-3"
-        :time="190 * 24 * 60 * 60 * 1000"
+        :time="remainingTime"
         :transform="transformSlotProps"
         v-slot="{ days, hours, minutes, seconds }"
       >
@@ -76,15 +76,30 @@
   const appStore = useAppStore();
   const { pageLoaded } = storeToRefs(appStore);
 
-  function transformSlotProps(props) {
-    const formattedProps = {};
 
-    Object.entries(props).forEach(([key, value]) => {
-      formattedProps[key] = value < 10 ? `0${value}` : String(value);
-    });
+  // ⏰ Set your fixed countdown target (e.g., website launch)
+const END_DATE = new Date('2025-08-09T00:00:00Z').getTime()
 
-    return formattedProps;
-  }
+// ✅ Fetch current time from WorldTimeAPI
+const { data: worldTime, pending, error } = await useFetch('https://worldtimeapi.org/api/timezone/Etc/UTC')
+
+// ✅ Compute time left only once WorldTimeAPI responds
+const remainingTime = computed(() => {
+  if (!worldTime.value) return 0
+
+  const serverNow = new Date(worldTime.value.datetime).getTime()
+  return Math.max(END_DATE - serverNow, 0)
+})
+
+// Format time values (e.g. prepend 0s)
+function transformSlotProps(props) {
+  const formattedProps = {}
+  Object.entries(props).forEach(([key, value]) => {
+    formattedProps[key] = value < 10 ? `0${value}` : String(value)
+  })
+  return formattedProps
+}
+
 
   watch(pageLoaded, () => {
     gsap.fromTo(
