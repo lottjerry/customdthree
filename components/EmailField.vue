@@ -28,6 +28,8 @@
   import * as yup from 'yup';
   import { useForm } from 'vee-validate';
   import { doc, setDoc } from 'firebase/firestore';
+  import Swal from 'sweetalert2';
+  import 'animate.css';
 
   const { errors, handleSubmit, defineField } = useForm({
     validationSchema: yup.object({
@@ -44,12 +46,65 @@
 
   const onSubmit = handleSubmit(async (values) => {
     try {
+      // Show loading alert
+      Swal.fire({
+        title: 'Sending...',
+        customClass: {
+          popup:
+            'rounded-[3.5rem] bg-black bg-opacity-80 text-white backdrop-blur-[3px]',
+          title: 'text-4xl md:text-5xl md:font-thin',
+        },
+        showClass: {
+          popup: `
+          animate__animated
+          animate__fadeInUp
+        `,
+        },
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
+
       const docRef = doc(db, collectionName, values.email.toLowerCase());
+
+      // Record the start time
+      const startTime = Date.now();
+
+      // Save the document
       await setDoc(docRef, {
         email: values.email.toLowerCase(),
         timestamp: new Date(),
       });
-      alert('Email saved successfully!');
+
+      // Calculate elapsed time and wait if less than 3 seconds
+      const elapsed = Date.now() - startTime;
+      const minDelay = 3000; // 3 seconds
+      if (elapsed < minDelay) {
+        await new Promise((resolve) => setTimeout(resolve, minDelay - elapsed));
+      }
+
+      Swal.hideLoading();
+
+      // Show success message
+      Swal.update({
+        icon: 'success',
+        title: 'Thank you!',
+        text: 'Stay tuned! We’ll send you an email as soon as we go live.',
+        confirmButtonColor: '#252fff',
+        confirmButtonText: 'Great!',
+        customClass: {
+          popup:
+            'rounded-[3.5rem] bg-black bg-opacity-80 text-white backdrop-blur-[3px]',
+          confirmButton: 'w-[200px] text-xl',
+        },
+        hideClass: {
+          popup: `
+          animate__animated
+          animate__fadeOutDown
+        `,
+        },
+      });
     } catch (error) {
       alert(error.message);
     }
