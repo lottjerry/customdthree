@@ -77,21 +77,34 @@
   const { pageLoaded } = storeToRefs(appStore);
 
 
-  // ⏰ Set your fixed countdown target (e.g., website launch)
-const END_DATE = new Date('2025-08-09T00:00:00Z').getTime()
+  const END_DATE = new Date('2025-08-09T00:00:00Z').getTime()
 
-// ✅ Fetch current time from WorldTimeAPI
-const { data: worldTime, pending, error } = await useFetch('https://worldtimeapi.org/api/timezone/Etc/UTC')
+// Reactive current time - initially set to local time as fallback
+const currentTime = ref(Date.now())
 
-// ✅ Compute time left only once WorldTimeAPI responds
-const remainingTime = computed(() => {
-  if (!worldTime.value) return 0
+async function fetchWorldTime() {
+  try {
+    const res = await fetch('https://worldtimeapi.org/api/timezone/Etc/UTC')
+    if (!res.ok) throw new Error('API error')
+    const data = await res.json()
+    currentTime.value = new Date(data.datetime).getTime()
+  } catch (e) {
+    // fallback to local time if fetch fails
+    currentTime.value = Date.now()
+  }
+}
 
-  const serverNow = new Date(worldTime.value.datetime).getTime()
-  return Math.max(END_DATE - serverNow, 0)
+// Fetch time on component mount
+onMounted(() => {
+  fetchWorldTime()
 })
 
-// Format time values (e.g. prepend 0s)
+// Update remaining time based on currentTime reactive ref
+const remainingTime = computed(() => {
+  return Math.max(END_DATE - currentTime.value, 0)
+})
+
+// Format time values (prepend 0s)
 function transformSlotProps(props) {
   const formattedProps = {}
   Object.entries(props).forEach(([key, value]) => {
