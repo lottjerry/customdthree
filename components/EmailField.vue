@@ -3,7 +3,7 @@
     <h3 class="w-3/4">Email *</h3>
     <form
       @submit="onSubmit"
-      class="border-colors flex h-14 md:w-3/4 w-10/12 items-center justify-between rounded-3xl border bg-transparent px-1"
+      class="border-colors flex h-14 w-10/12 items-center justify-between rounded-3xl border bg-transparent px-1 md:w-3/4"
       :class="errors.email ? 'border-red-600' : 'border-white'"
     >
       <input
@@ -14,7 +14,7 @@
       />
       <button
         :disabled="errors.email"
-        class="mr-3 h-12 w-32 rounded-3xl border transition-transform duration-700 ease-in-out hover:translate-x-3 disabled:translate-x-0 disabled:cursor-not-allowed disabled:border-red-600 disabled:opacity-50 md:w-32 md:text-lg text-sm"
+        class="mr-3 h-12 w-32 rounded-3xl border text-sm transition-transform duration-700 ease-in-out hover:translate-x-3 disabled:translate-x-0 disabled:cursor-not-allowed disabled:border-red-600 disabled:opacity-50 md:w-32 md:text-lg"
         :class="errors.email ? '' : 'button-animation'"
       >
         <span>Notify Me!</span>
@@ -27,6 +27,7 @@
 <script setup>
   import * as yup from 'yup';
   import { useForm } from 'vee-validate';
+  import { doc, setDoc } from 'firebase/firestore';
 
   const { errors, handleSubmit, defineField } = useForm({
     validationSchema: yup.object({
@@ -38,9 +39,20 @@
   });
 
   const [email, emailAttrs] = defineField('email');
+  const db = useFirestore();
+  const collectionName = 'emails';
 
-  const onSubmit = handleSubmit((values) => {
-    alert(JSON.stringify(values, null, 2));
+  const onSubmit = handleSubmit(async (values) => {
+    try {
+      const docRef = doc(db, collectionName, values.email.toLowerCase());
+      await setDoc(docRef, {
+        email: values.email.toLowerCase(),
+        timestamp: new Date(),
+      });
+      alert('Email saved successfully!');
+    } catch (error) {
+      alert(error.message);
+    }
   });
 </script>
 
