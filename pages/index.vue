@@ -147,4 +147,8 @@
   onMounted(() => {
     scrollToHeroSection();
   });
+
+  onUpdated(() => {
+    scrollToHeroSection();
+  });
 </script>
