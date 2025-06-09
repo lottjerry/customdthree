@@ -67,6 +67,13 @@
     }
   };
 
+  const scrollToHeroSection = () => {
+    const el = document.querySelector('#hero_section');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   watch(pageLoaded, (newValue) => {
     // Initial animation (entry animation)
     gsap.fromTo(
@@ -138,6 +145,6 @@
   });
 
   onMounted(() => {
-    window.scrollTo(0, 0);
+    scrollToHeroSection();
   });
 </script>
