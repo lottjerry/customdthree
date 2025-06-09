@@ -135,10 +135,9 @@
       opacity: 1,
       duration: 1,
     });
-    
   });
-  
+
   onMounted(() => {
-  window.scrollTo(0, 0);
-});
+    window.scrollTo(0, 0);
+  });
 </script>
