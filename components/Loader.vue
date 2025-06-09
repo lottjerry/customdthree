@@ -49,6 +49,7 @@
   onMounted(() => {
     document.body.style.overflow = 'hidden'; // disable scroll while loading
     startAnimations();
+    window.scrollTo(0, 0);
   });
 
   watch(load_Complete, (val) => {

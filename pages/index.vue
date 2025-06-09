@@ -148,7 +148,4 @@
     scrollToHeroSection();
   });
 
-  onUpdated(() => {
-    scrollToHeroSection();
-  });
 </script>
