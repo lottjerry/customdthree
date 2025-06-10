@@ -9,7 +9,7 @@
     >
       <span class="pb-2">Design.</span>
       <span class="pb-2">Develop.</span>
-      <span class="pb-2">Deploy</span>
+      <span class="pb-2">Deploy.</span>
     </h1>
     <div class="light pointer-events-none absolute inset-0"></div>
   </div>
