@@ -77,7 +77,7 @@
   const { pageLoaded } = storeToRefs(appStore);
 
 
-  const END_DATE = new Date('2025-08-09T00:00:00Z').getTime()
+  const END_DATE = new Date('2025-12-09T00:00:00Z').getTime()
 
 // Reactive current time - initially set to local time as fallback
 const currentTime = ref(Date.now())
