@@ -2,13 +2,13 @@
   <div class="text-white opacity-0" ref="countdown_timer">
     <client-only>
       <VueCountdown
-        class="flex items-start justify-center md:gap-8 gap-3"
+        class="flex items-start justify-center gap-3 md:gap-8"
         :time="remainingTime"
         :transform="transformSlotProps"
         v-slot="{ days, hours, minutes, seconds }"
       >
         <!-- Days -->
-        <div class="flex flex-col items-center w-15">
+        <div class="w-15 flex flex-col items-center">
           <h1 class="text-4xl font-thin md:text-7xl">{{ days }}</h1>
           <h3 class="mt-2 md:text-2xl">Days</h3>
         </div>
@@ -24,7 +24,7 @@
         </div>
 
         <!-- Hours -->
-        <div class="flex flex-col items-center w-15">
+        <div class="w-15 flex flex-col items-center">
           <h1 class="text-4xl font-thin md:text-7xl">{{ hours }}</h1>
           <h3 class="textxl mt-2 md:text-2xl">Hours</h3>
         </div>
@@ -40,7 +40,7 @@
         </div>
 
         <!-- Minutes -->
-        <div class="flex flex-col items-center  w-15">
+        <div class="w-15 flex flex-col items-center">
           <h1 class="text-4xl font-thin md:text-7xl">{{ minutes }}</h1>
           <h3 class="textxl mt-2 md:text-2xl">Minutes</h3>
         </div>
@@ -56,7 +56,7 @@
         </div>
 
         <!-- Seconds -->
-        <div class="flex flex-col items-center w-15">
+        <div class="w-15 flex flex-col items-center">
           <h1 class="text-4xl font-thin md:text-7xl">{{ seconds }}</h1>
           <h3 class="textxl mt-2 md:text-2xl">Seconds</h3>
         </div>
@@ -71,48 +71,46 @@
 
   const gsap = useGSAP();
 
-  const countdown_timer = ref(null)
+  const countdown_timer = ref(null);
 
   const appStore = useAppStore();
   const { pageLoaded } = storeToRefs(appStore);
 
+  const END_DATE = new Date('2026-8-09T00:00:00Z').getTime();
 
-  const END_DATE = new Date('2025-12-09T00:00:00Z').getTime()
+  // Reactive current time - initially set to local time as fallback
+  const currentTime = ref(Date.now());
 
-// Reactive current time - initially set to local time as fallback
-const currentTime = ref(Date.now())
-
-async function fetchWorldTime() {
-  try {
-    const res = await fetch('https://worldtimeapi.org/api/timezone/Etc/UTC')
-    if (!res.ok) throw new Error('API error')
-    const data = await res.json()
-    currentTime.value = new Date(data.datetime).getTime()
-  } catch (e) {
-    // fallback to local time if fetch fails
-    currentTime.value = Date.now()
+  async function fetchWorldTime() {
+    try {
+      const res = await fetch('https://worldtimeapi.org/api/timezone/Etc/UTC');
+      if (!res.ok) throw new Error('API error');
+      const data = await res.json();
+      currentTime.value = new Date(data.datetime).getTime();
+    } catch (e) {
+      // fallback to local time if fetch fails
+      currentTime.value = Date.now();
+    }
   }
-}
 
-// Fetch time on component mount
-onMounted(() => {
-  fetchWorldTime()
-})
+  // Fetch time on component mount
+  onMounted(() => {
+    fetchWorldTime();
+  });
 
-// Update remaining time based on currentTime reactive ref
-const remainingTime = computed(() => {
-  return Math.max(END_DATE - currentTime.value, 0)
-})
+  // Update remaining time based on currentTime reactive ref
+  const remainingTime = computed(() => {
+    return Math.max(END_DATE - currentTime.value, 0);
+  });
 
-// Format time values (prepend 0s)
-function transformSlotProps(props) {
-  const formattedProps = {}
-  Object.entries(props).forEach(([key, value]) => {
-    formattedProps[key] = value < 10 ? `0${value}` : String(value)
-  })
-  return formattedProps
-}
-
+  // Format time values (prepend 0s)
+  function transformSlotProps(props) {
+    const formattedProps = {};
+    Object.entries(props).forEach(([key, value]) => {
+      formattedProps[key] = value < 10 ? `0${value}` : String(value);
+    });
+    return formattedProps;
+  }
 
   watch(pageLoaded, () => {
     gsap.fromTo(
@@ -125,7 +123,7 @@ function transformSlotProps(props) {
         opacity: 1,
         y: 0,
         duration: 1,
-        delay: 1
+        delay: 1,
       },
     );
   });
