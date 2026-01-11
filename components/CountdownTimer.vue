@@ -15,50 +15,38 @@
 
         <!-- Colon -->
         <div class="mt-3 flex flex-col justify-center gap-2 md:mt-6 md:gap-3">
-          <div
-            class="first-colon h-[0.3rem] w-[0.3rem] rounded-full md:h-2 md:w-2"
-          ></div>
-          <div
-            class="first-colon h-[0.3rem] w-[0.3rem] rounded-full md:h-2 md:w-2"
-          ></div>
+          <div class="first-colon dot"></div>
+          <div class="first-colon dot"></div>
         </div>
 
         <!-- Hours -->
         <div class="w-15 flex flex-col items-center">
           <h1 class="text-4xl font-thin md:text-7xl">{{ hours }}</h1>
-          <h3 class="textxl mt-2 md:text-2xl">Hours</h3>
+          <h3 class="mt-2 md:text-2xl">Hours</h3>
         </div>
 
         <!-- Colon -->
         <div class="mt-3 flex flex-col justify-center gap-2 md:mt-6 md:gap-3">
-          <div
-            class="second-colon h-[0.3rem] w-[0.3rem] rounded-full md:h-2 md:w-2"
-          ></div>
-          <div
-            class="second-colon h-[0.3rem] w-[0.3rem] rounded-full md:h-2 md:w-2"
-          ></div>
+          <div class="second-colon dot"></div>
+          <div class="second-colon dot"></div>
         </div>
 
         <!-- Minutes -->
         <div class="w-15 flex flex-col items-center">
           <h1 class="text-4xl font-thin md:text-7xl">{{ minutes }}</h1>
-          <h3 class="textxl mt-2 md:text-2xl">Minutes</h3>
+          <h3 class="mt-2 md:text-2xl">Minutes</h3>
         </div>
 
         <!-- Colon -->
         <div class="mt-3 flex flex-col justify-center gap-2 md:mt-6 md:gap-3">
-          <div
-            class="third-colon h-[0.3rem] w-[0.3rem] rounded-full md:h-2 md:w-2"
-          ></div>
-          <div
-            class="third-colon h-[0.3rem] w-[0.3rem] rounded-full md:h-2 md:w-2"
-          ></div>
+          <div class="third-colon dot"></div>
+          <div class="third-colon dot"></div>
         </div>
 
         <!-- Seconds -->
         <div class="w-15 flex flex-col items-center">
           <h1 class="text-4xl font-thin md:text-7xl">{{ seconds }}</h1>
-          <h3 class="textxl mt-2 md:text-2xl">Seconds</h3>
+          <h3 class="mt-2 md:text-2xl">Seconds</h3>
         </div>
       </VueCountdown>
     </client-only>
@@ -66,90 +54,108 @@
 </template>
 
 <script setup>
-  import VueCountdown from '@chenfengyuan/vue-countdown';
-  import { useAppStore } from '~/stores/appStore';
+import VueCountdown from '@chenfengyuan/vue-countdown'
+import { useAppStore } from '~/stores/appStore'
 
-  const gsap = useGSAP();
+const gsap = useGSAP()
+const countdown_timer = ref(null)
 
-  const countdown_timer = ref(null);
+const appStore = useAppStore()
+const { pageLoaded } = storeToRefs(appStore)
 
-  const appStore = useAppStore();
-  const { pageLoaded } = storeToRefs(appStore);
+/**
+ * 🔒 AUTHORITATIVE END DATE (UTC)
+ */
+const END_DATE = new Date('2026-06-09T00:00:00Z').getTime()
 
-  const END_DATE = new Date('2026-8-09T00:00:00Z').getTime();
+/**
+ * 🕒 Server-synced current time
+ */
+const currentTime = ref(Date.now())
+let interval = null
 
-  // Reactive current time - initially set to local time as fallback
-  const currentTime = ref(Date.now());
-
-  async function fetchWorldTime() {
-    try {
-      const res = await fetch('https://worldtimeapi.org/api/timezone/Etc/UTC');
-      if (!res.ok) throw new Error('API error');
-      const data = await res.json();
-      currentTime.value = new Date(data.datetime).getTime();
-    } catch (e) {
-      // fallback to local time if fetch fails
-      currentTime.value = Date.now();
-    }
+/**
+ * Fetch server time (Nuxt API)
+ */
+async function syncServerTime() {
+  try {
+    const { now } = await $fetch('/api/time')
+    currentTime.value = now
+  } catch (e) {
+    // fallback (never breaks countdown)
+    currentTime.value = Date.now()
   }
+}
 
-  // Fetch time on component mount
-  onMounted(() => {
-    fetchWorldTime();
-  });
+/**
+ * Countdown remaining time
+ */
+const remainingTime = computed(() =>
+  Math.max(END_DATE - currentTime.value, 0)
+)
 
-  // Update remaining time based on currentTime reactive ref
-  const remainingTime = computed(() => {
-    return Math.max(END_DATE - currentTime.value, 0);
-  });
-
-  // Format time values (prepend 0s)
-  function transformSlotProps(props) {
-    const formattedProps = {};
-    Object.entries(props).forEach(([key, value]) => {
-      formattedProps[key] = value < 10 ? `0${value}` : String(value);
-    });
-    return formattedProps;
+/**
+ * Slot formatting
+ */
+function transformSlotProps(props) {
+  const formatted = {}
+  for (const [key, value] of Object.entries(props)) {
+    formatted[key] = value < 10 ? `0${value}` : String(value)
   }
+  return formatted
+}
 
-  watch(pageLoaded, () => {
-    gsap.fromTo(
-      countdown_timer.value,
-      {
-        opacity: 0,
-        y: 100,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        delay: 1,
-      },
-    );
-  });
+/**
+ * Lifecycle
+ */
+onMounted(async () => {
+  await syncServerTime()
+
+  // Tick every second
+  interval = setInterval(() => {
+    currentTime.value += 1000
+  }, 1000)
+})
+
+onUnmounted(() => {
+  clearInterval(interval)
+})
+
+/**
+ * Animation
+ */
+watch(pageLoaded, () => {
+  gsap.fromTo(
+    countdown_timer.value,
+    { opacity: 0, y: 100 },
+    { opacity: 1, y: 0, duration: 1, delay: 1 }
+  )
+})
 </script>
 
 <style scoped>
-  .first-colon {
-    background: linear-gradient(
-      90deg,
-      #91d1f1 0%,
-      #25a5e6 46.67%,
-      #252fff 100%
-    );
-  }
+.dot {
+  height: 0.3rem;
+  width: 0.3rem;
+  border-radius: 9999px;
+}
 
-  .second-colon {
-    background: linear-gradient(
-      90deg,
-      #f0a72f 0%,
-      #ec6c33 31.6%,
-      #e34534 69.81%,
-      #cd18c2 100%
-    );
+@media (min-width: 768px) {
+  .dot {
+    height: 0.5rem;
+    width: 0.5rem;
   }
+}
 
-  .third-colon {
-    background: linear-gradient(90deg, #f5f5f7 0%, #5f5f63 100%);
-  }
+.first-colon {
+  background: linear-gradient(90deg, #91d1f1, #25a5e6, #252fff);
+}
+
+.second-colon {
+  background: linear-gradient(90deg, #f0a72f, #ec6c33, #e34534, #cd18c2);
+}
+
+.third-colon {
+  background: linear-gradient(90deg, #f5f5f7, #5f5f63);
+}
 </style>
