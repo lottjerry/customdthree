@@ -66,7 +66,7 @@ const { pageLoaded } = storeToRefs(appStore)
 /**
  * 🔒 AUTHORITATIVE END DATE (UTC)
  */
-const END_DATE = new Date('2026-06-09T00:00:00Z').getTime()
+const END_DATE = new Date('2027-02-09T00:00:00Z').getTime()
 
 /**
  * 🕒 Server-synced current time
